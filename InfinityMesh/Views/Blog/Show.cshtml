@@ -1,0 +1,62 @@
+﻿
+
+@model ReflectionIT.Mvc.Paging.PagingList<BlogShowVM>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *, ReflectionIT.Mvc.Paging
+
+@*<nav aria-label="Suppliers navigation example">
+    @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
+</nav>*@
+
+<fieldset style="border:1px solid #999; border-radius:8px; box-shadow:0 0 8px #999;padding:6px;">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Summary</th>
+                <th>Publish Date Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model)
+            {
+                <tr>
+                    <td>@x.Title</td>
+                    <td>@x.Summary</td>
+                    <td>@x.PublishedDate.ToString("hh:mm, dd MMM yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</fieldset>
+<br />
+<div class="paginationDiv">
+    <nav aria-label="Suppliers navigation example">
+        <vc:pager paging-list="@Model" />
+    </nav>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $(".page-item").click(function () {
+
+            event.preventDefault();
+
+            var FromDate = $('#FromDate').val();
+            var ToDate = $('#ToDate').val();
+            var Id = $('#IdOfUser').val();
+            var element = $(this);
+            var PageIndexVal = element.text();
+            
+            $.get({
+                url: `/Blog/Show?pageIndex=${PageIndexVal}&id=${Id}&FromDate=${FromDate}&ToDate=${ToDate}`,
+                success: function (rez) {
+                    $("#resultDiv").html(rez);
+                }
+            })
+        })
+    })
+</script>
+
+

@@ -1,0 +1,61 @@
+﻿
+
+<div class="userDetailsMainDiv">
+
+    <h1>The User List</h1>
+
+    <hr />
+
+    <div class="userlist">
+            <div class="searchDiv form-group searchDivUserIndex">
+                <input type="text" class="form-control" id="searchInput" placeholder="Search..." />
+            </div>
+            <br />
+            <div id="resultDiv"></div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+
+
+        $(document).ready(function () {
+
+            $.get({
+                url: "/User/Show",
+                success: function (rez) {
+                    $("#resultDiv").html(rez);
+                }
+            })
+        });
+
+
+
+        $("input").keyup(function () {
+
+            var keyword = $(this).val();
+            $.get({
+                url: "/User/Show?keyword=" + keyword,
+                success: function (rez) {
+                    $("#resultDiv").html(rez);
+                }
+            })
+
+        });
+
+        $("input").keydown(function () {
+
+            var keyword = $(this).val();
+            $.get({
+                url: "/User/Show?keyword=" + keyword,
+                success: function (rez) {
+                    $("#resultDiv").html(rez);
+                }
+            })
+
+        });
+
+    </script>
+

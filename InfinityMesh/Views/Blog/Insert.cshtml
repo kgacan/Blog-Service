@@ -1,0 +1,24 @@
+﻿
+@model BlogAddVM
+
+    <div class="">
+        <form asp-action="SaveBlog">
+
+            <input asp-for="appUserId" hidden />
+
+            <div class="form-group">
+                <input asp-for="Title" class="form-control" placeholder="Title" />
+            </div>
+            <div class="form-group">
+                <textarea asp-for="Summary" class="form-control" placeholder="Summary" rows="10"></textarea>
+            </div>
+            <div class="form-group">
+                <input asp-for="PublishedDate" class="form-control" />
+            </div>
+            <div class="w3-container w3-light-grey w3-padding">
+                <button type="submit" class="w3-button w3-right w3-white w3-border">Save</button>
+            </div>
+
+        </form>
+    </div>
+

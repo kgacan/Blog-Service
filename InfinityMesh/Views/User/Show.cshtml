@@ -1,0 +1,68 @@
+﻿
+@model ReflectionIT.Mvc.Paging.PagingList<UserIndexVM>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *, ReflectionIT.Mvc.Paging
+
+
+<br />
+
+@*<nav aria-label="Suppliers navigation example">
+    @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
+</nav>*@
+
+<fieldset style="border:1px solid #999; border-radius:8px; box-shadow:0 0 8px #999;padding:6px;">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Blogs</th>
+                <th>View Profile</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model)
+            {
+                <tr>
+                    <td>@x.FirstName @x.LastName</td>
+                    <td>@x.Age</td>
+                    <td>@x.Email</td>
+                    <td>@x.NumberOfBlogs</td>
+                    <td><a href="/User/Details?id=@x.Id">View</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</fieldset>
+
+<br />
+<div class="paginationDiv">
+    <nav aria-label="Suppliers navigation example">
+            <vc:pager paging-list="@Model" />
+        </nav>
+</div>
+<br />
+
+
+<script>
+    $(document).ready(function () {
+
+        $(".page-item").click(function () {
+
+            event.preventDefault();
+
+            var keyword = $('#searchInput').val();
+            var element = $(this);
+            var PageIndexVal = element.text();
+
+            $.get({
+                url: `/User/Show?keyword=${keyword}&pageIndex=${PageIndexVal}`,
+                success: function (rez) {
+                    $("#resultDiv").html(rez);
+                }
+            })
+        })
+    })
+</script>
+
